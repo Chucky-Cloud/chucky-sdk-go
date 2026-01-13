@@ -113,10 +113,20 @@ func (t *WebSocketTransport) Connect() error {
 	headers := http.Header{}
 	headers.Set("Origin", "https://app.chucky.cloud")
 
-	conn, _, err := dialer.Dial(u.String(), headers)
+	conn, resp, err := dialer.Dial(u.String(), headers)
 	if err != nil {
 		t.setStatus(StatusError)
-		return types.ConnectionError("failed to connect").Wrap(err)
+		errMsg := fmt.Sprintf("failed to connect: %v", err)
+		if resp != nil {
+			errMsg = fmt.Sprintf("failed to connect (HTTP %d): %v", resp.StatusCode, err)
+			if t.debug {
+				fmt.Printf("[WebSocket] Response status: %d\n", resp.StatusCode)
+				for k, v := range resp.Header {
+					fmt.Printf("[WebSocket] Response header %s: %v\n", k, v)
+				}
+			}
+		}
+		return types.ConnectionError(errMsg)
 	}
 
 	t.mu.Lock()

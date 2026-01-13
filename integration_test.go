@@ -79,8 +79,11 @@ func TestTokenCreation(t *testing.T) {
 func TestSimplePrompt(t *testing.T) {
 	token := getTestToken(t)
 
+	t.Logf("Token (first 50 chars): %s...", token[:min(50, len(token))])
+
 	client := chucky.NewClient(chucky.ClientOptions{
 		Token: token,
+		Debug: true,
 	})
 	defer client.Close()
 
