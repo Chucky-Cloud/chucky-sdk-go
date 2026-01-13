@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 	"sync"
 	"time"
@@ -108,7 +109,11 @@ func (t *WebSocketTransport) Connect() error {
 		HandshakeTimeout: t.timeout,
 	}
 
-	conn, _, err := dialer.Dial(u.String(), nil)
+	// Build request headers
+	headers := http.Header{}
+	headers.Set("Origin", "https://app.chucky.cloud")
+
+	conn, _, err := dialer.Dial(u.String(), headers)
 	if err != nil {
 		t.setStatus(StatusError)
 		return types.ConnectionError("failed to connect").Wrap(err)
