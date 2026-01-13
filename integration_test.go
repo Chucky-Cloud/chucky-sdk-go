@@ -29,7 +29,7 @@ func getTestToken(t *testing.T) string {
 		UserID:    "test-user",
 		ProjectID: projectID,
 		Secret:    hmacKey,
-		ExpiresIn: 3600,
+		ExpiresIn: time.Hour,
 		Budget: chucky.CreateBudget(chucky.CreateBudgetOptions{
 			AIDollars:    1.0,
 			ComputeHours: 1.0,
@@ -56,7 +56,7 @@ func TestTokenCreation(t *testing.T) {
 		UserID:    "test-user",
 		ProjectID: projectID,
 		Secret:    hmacKey,
-		ExpiresIn: 3600,
+		ExpiresIn: time.Hour,
 		Budget: chucky.CreateBudget(chucky.CreateBudgetOptions{
 			AIDollars:    1.0,
 			ComputeHours: 1.0,
