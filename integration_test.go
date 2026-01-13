@@ -115,7 +115,7 @@ func TestSimplePrompt(t *testing.T) {
 
 func TestStructuredOutput(t *testing.T) {
 	// Wait for previous test's session to be released
-	time.Sleep(3 * time.Second)
+	time.Sleep(10 * time.Second)
 
 	token := getTestToken(t)
 
@@ -150,7 +150,7 @@ func TestStructuredOutput(t *testing.T) {
 
 func TestMcpToolExecution(t *testing.T) {
 	// Wait for previous test's session to be released
-	time.Sleep(3 * time.Second)
+	time.Sleep(10 * time.Second)
 
 	token := getTestToken(t)
 
