@@ -96,6 +96,7 @@ func (t *WebSocketTransport) Connect() error {
 
 	q := u.Query()
 	q.Set("token", t.token)
+	q.Set("type", "prompt")
 	u.RawQuery = q.Encode()
 
 	if t.debug {
